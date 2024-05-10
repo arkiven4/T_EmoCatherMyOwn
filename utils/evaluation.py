@@ -6,14 +6,11 @@ import numpy as np
 
 # emotion class dictionary
 emotion_dict = {
-    "01": "neutral", 
-    "02": "calm",
-    "03": "happy", 
-    "04": "sad", 
-    "05": "angry", 
-    "06": "fearful", 
-    "07": "disgust",
-    "08": "surprised"
+    0: "Neutral",
+    1: "Happy",
+    2: "Angry",
+    3: "Sad",
+    4: "Surprise"
  }
 
 def create_confusion_matrix(model, dataloader, n_class):

@@ -59,14 +59,14 @@ def mels2batch(batch):
 
 def mels2batchMyOwn(batch):
     mel_specs = []
-    info_list = []
+    emos = []
     L_list = []
-    for mel_spec, sr, info, fn in batch:
-        info_list.append(info)       
+    for mel_spec, sr, emo in batch:
+        emos.append(emo)       
         L_list.append(mel_spec.shape[1])
         mel_specs.append( mel_spec.transpose(0,1).contiguous())
     padded_mel_specs = nn.utils.rnn.pad_sequence( mel_specs, batch_first = True, padding_value= 0).unsqueeze(1).transpose(2,3).contiguous()
-    return padded_mel_specs, torch.Tensor(pd.DataFrame(info_list).emotion.values.astype('int16')-1).long(), torch.tensor(L_list)
+    return padded_mel_specs, torch.Tensor(emos).long(), torch.tensor(L_list)
 
 
 def sig2batch(batch, mel_specs_kwargs = {}):

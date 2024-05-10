@@ -36,9 +36,8 @@ class RAVDESSMelS(Dataset):
 
 
 class MyOwnDBMelS(Dataset):
-    def __init__(self, audiopaths_and_text, mel_specs_kwargs = {}, speech_list= None, out_dir = None):
+    def __init__(self, audiopaths_and_text, mel_specs_kwargs = {}):
         self.mel_specs_kwargs = mel_specs_kwargs
-        self.out_dir = out_dir
 
         with open(audiopaths_and_text, encoding='utf-8') as f:
             self.audiopaths_and_text = [line.strip().split("|") for line in f]
@@ -65,10 +64,10 @@ def truncate_melspecs(sig, return_va_point = False, sr = 22050, mel_specs_kwargs
         return mel_spec
 
 emotion_dict = {
-    "01": "Neutral",
-    "02": "Happy",
-    "03": "Angry",
-    "04": "Sad",
-    "05": "Surprise"
+    0: "Neutral",
+    1: "Happy",
+    2: "Angry",
+    3: "Sad",
+    4: "Surprise"
 }
 
