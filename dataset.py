@@ -49,10 +49,10 @@ class MyOwnDBMelS(Dataset):
 
         sig, sr = librosa.load(audiopath)
         mel_spec =  truncate_melspecs(sig, return_va_point=False, sr = sr, mel_specs_kwargs=self.mel_specs_kwargs)   
-        return torch.Tensor(mel_spec), sr, emo
+        return torch.Tensor(mel_spec), sr, int(emo)
     
     def __len__(self):
-        return len(self.speech_list)
+        return len(self.audiopaths_and_text)
 
 def truncate_melspecs(sig, return_va_point = False, sr = 22050, mel_specs_kwargs = {}):
     mel_spec = librosa.power_to_db(librosa.feature.melspectrogram(y=sig, sr= sr, **mel_specs_kwargs))

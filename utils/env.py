@@ -4,10 +4,9 @@ import os
 
 def create_config():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--dataset_dir', default = '../../../dataset/ravdess')
     parser.add_argument('-o', '--out_dir', default = "./output/")
     parser.add_argument('-e', '--n_epochs', default = 100, type = int)
-    parser.add_argument('-b', '--batch_size', default=32, type = int)
+    parser.add_argument('-b', '--batch_size', default=192, type = int)
     parser.add_argument('-c', '--kfcv', default= False, type = lambda x:  True if x.lower() == 'true' else False)
     parser.add_argument('-r', '--random_state', default=999, type = int)
     parser.add_argument('-l', '--log', default = 'log.txt')

@@ -12,7 +12,7 @@ def train(train_dloader, model,  optimizer, crit, epoch, device, max_norm = None
             tepoch.set_description(f"[Epoch {epoch}]")
             x = x.to(device)
             y = y.to(device)
-            y_pred = model(x, L)
+            y_pred, z = model(x, L)
             loss_i = crit( y_pred, y)
             acc_i = y_pred.argmax(dim = 1).eq(y).sum().item()
             optimizer.zero_grad()
@@ -38,7 +38,7 @@ def evaluate(test_dloader, model, crit, epoch, device):
                 tepoch.set_description(f"[Epoch {epoch}]")
                 x = x.to(device)
                 y = y.to(device)
-                y_pred = model(x, L) 
+                y_pred, z = model(x, L) 
                 acc_i = y_pred.argmax(dim = 1).eq(y).sum().item()
                 test_acc += acc_i
                 loss_i = crit(y_pred, y)

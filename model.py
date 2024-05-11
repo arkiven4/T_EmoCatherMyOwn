@@ -146,6 +146,6 @@ class EmoCatcher(nn.Module):
         y = self.linear2(z2)
         
         if return_attention_weights:
-            return y, att_weights
+            return y, att_weights, z2
         else:
-            return y
+            return y, z2
