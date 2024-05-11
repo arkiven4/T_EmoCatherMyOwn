@@ -22,7 +22,7 @@ def create_confusion_matrix(model, dataloader, n_class):
     cm = torch.zeros( (n_class, n_class) )
     model.eval()
     for x_test, y_test, L in dataloader:
-        y_pred_test = model(x_test,L).argmax(dim = 1)
+        y_pred_test = model(x_test,L)[0].argmax(dim = 1)
         cm +=ConfusionMatrix( num_classes=n_class, task="multiclass" )(y_pred_test, y_test)
     print("Accuracy: {}".format(cm.trace()/ len(dataloader.dataset)) )
     return cm
@@ -77,7 +77,7 @@ def plot_cm(cm, normalize = False, ax = None):
     if not isinstance(cm,np.ndarray):
         cm = cm.detach().numpy()
     
-    cm_df = pd.DataFrame(cm, columns = [ emotion_dict[f"0{i}"] for i in range(1,9) ], index=[ emotion_dict[f"0{i}"] for i in range(1,9) ] )
+    cm_df = pd.DataFrame(cm, columns = [ emotion_dict[i] for i in range(5) ], index=[ emotion_dict[i] for i in range(5) ] )
     factor = np.sum(cm_df, axis=1) if normalize else 1
     p = sn.heatmap(cm_df/factor, annot=True, ax=ax)
     p.set_ylabel('actual')

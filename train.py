@@ -36,7 +36,7 @@ train_dloader = DataLoader(train_dset, batch_size=config.batch_size, collate_fn=
 test_dloader = DataLoader(test_dset, batch_size=64, collate_fn=mels2batchMyOwn, shuffle=False)
 
 # Define model
-model = EmoCatcher(input_dim = mel_kwargs['n_mels'], hidden_dim = 128, kernel_size= 3, num_classes=5).to(device)
+model = EmoCatcher(input_dim = mel_kwargs['n_mels'], hidden_dim = 512, kernel_size= 3, num_classes=5).to(device)
 crit = LabelSmoothingLoss(n_classes=8, smoothing=.1, dim=-1)
 optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-8, betas=(0.9,0.999), weight_decay=1e-7, weight_decouple = False, rectify = False, print_change_log=False) 
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=.7, patience=2, cooldown = 3,  verbose=True, min_lr=1e-6, mode = 'min', threshold=0.001)
